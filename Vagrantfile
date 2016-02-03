@@ -3,6 +3,8 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+THREDDS_VERSION='4.6'
+THREDDS_URL="ftp://ftp.unidata.ucar.edu/pub/thredds/#{THREDDS_VERSION}/current/thredds.war"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -43,6 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 config.vm.synced_folder "./webapps", "/var/lib/tomcat/webapps", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
 config.vm.synced_folder "./conf", "/etc/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
 config.vm.synced_folder "./log", "/var/log/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+config.vm.synced_folder "./content", "/usr/share/tomcat/content", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
 
  
   # Provider-specific configuration so you can fine-tune various
@@ -86,6 +89,12 @@ config.vm.synced_folder "./log", "/var/log/tomcat", create:true, owner: "root", 
      puppet.manifests_path = "Puppet/manifests"
      puppet.module_path = "Puppet/modules"
      puppet.manifest_file  = "site.pp"
+   end
+   config.vm.provision "shell" do |s|
+     s.inline = "cp /etc/tomcat/tomcat.service /etc/systemd/system/multi-user.target.wants/"
+   end
+   config.vm.provision "shell" do |s|
+     s.inline = "cd /usr/share/tomcat/webapps; wg --no-clobber #{THREDDS_URL}"
    end
 
 end
