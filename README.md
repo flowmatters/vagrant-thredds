@@ -1,7 +1,7 @@
-vagrant-tomcat
+vagrant-thredds
 ===============
 
-Tomcat in a Vagrant VM
+THREDDS Data Server in a Vagrant VM
 
 What You'll need
 ================
@@ -15,12 +15,14 @@ Usage
 
 Start the Vagrant machine with 'vagrant up'.
 
-Put a .war file in ./webapps to install into Tomcat 7.
+Put thredds.war file in ./webapps to install into Tomcat 7. Alternatively, leave it and the war will be downloaded at provisioning time.
+
+Put data under `content/thredds/public/testdata`, or modify `content/thredds/catalog.xml` to point somewhere else. The data will need to be visible to the VM (eg by mapping a directory in the Vagrantfile).
 
 localhost:8080 is mapped by the Vagrantfile to the running Tomcat in the VM.
 
-Notes
-=====
+Notes from vagrant-tomcat
+=========================
 
 I've used the 'bento/fedora-21' box, because that's what I had to hand. Fork and change if you need, it should work with any RHL / Centos / Fedora (if you change the references to yum into dnf).
 
