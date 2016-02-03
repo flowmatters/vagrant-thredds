@@ -94,7 +94,7 @@ config.vm.synced_folder "./content", "/usr/share/tomcat/content", create:true, o
      s.inline = "cp /etc/tomcat/tomcat.service /etc/systemd/system/multi-user.target.wants/"
    end
    config.vm.provision "shell" do |s|
-     s.inline = "cd /usr/share/tomcat/webapps; wg --no-clobber #{THREDDS_URL}"
+     s.inline = "cd /usr/share/tomcat/webapps; wget --no-clobber #{THREDDS_URL}"
    end
 
 end
