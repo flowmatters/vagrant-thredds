@@ -19,7 +19,7 @@ Put thredds.war file in ./webapps to install into Tomcat 7. Alternatively, leave
 
 Put data under `content/thredds/public/testdata`, or modify `content/thredds/catalog.xml` to point somewhere else. The data will need to be visible to the VM (eg by mapping a directory in the Vagrantfile).
 
-localhost:8080 is mapped by the Vagrantfile to the running Tomcat in the VM.
+localhost:8080 is mapped by the Vagrantfile to the running Tomcat in the VM and THREDDS will be available at localhost:8080/thredds
 
 Notes from vagrant-tomcat
 =========================
